@@ -1,0 +1,352 @@
+\documentclass[11pt,twoside,a4paper]{article}
+
+\usepackage{amsfonts, amssymb, amsmath, amsthm}
+\usepackage{graphicx, color, xcolor, url, hyperref}
+\usepackage{paralist}
+\usepackage[margin=1.in]{geometry}
+\usepackage{verbatim}
+
+%%% Exercise style
+\newtheoremstyle{exercise} % name
+     {3ex}%      Space above
+     {5ex}%      Space below
+     {\normalfont}%         Body font
+     {}%         Indent amount (empty = no indent, \parindent = para indent)
+     {\bfseries}% Thm head font
+     {.}%        Punctuation after thm head
+     {  }%     Space after thm head: " " = normal interword space; \newline = linebreak
+     {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{exercise}
+\newtheorem{exercise}{Task}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+
+\newcommand{\eps}{\ensuremath{\varepsilon}}%
+\newcommand{\np}{\ensuremath{\mathcal{NP}}}
+
+\newcommand{\myline}{\rule{\textwidth}{0.6pt}}
+
+\newcommand{\opt}{{\sc Opt}}
+
+\parindent0mm
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{center}
+  {\Large \bf Assignment 6}\\[0.7ex]
+  {\large \bf CS-UH-1002: Discrete Mathematics}\\[2ex]
+  {\large \bf Due: Monday, March 30, by 11:59pm (GST)}\\[2ex]
+\end{center}
+
+\vspace*{-3ex}
+\myline
+
+%\bigskip
+
+The solution to the assignment \textbf{must} be typed in \LaTeX and submitted electronically. Upload your solution to Brightspace as one PDF file with your name on the first page. The file name should contain your full name: \texttt{Ass-6\_<FirstNLastN>.pdf}.  You may discuss with others in order to get ideas, but you need to provide your own, individual solution. You need to state all your used sources (books, online references, close collaboration with others, etc.).\\
+
+\textbf{You are required to respond to each of the following tasks and present the details of your work clearly, but concisely.}
+
+%------------------------------------------------------------------------
+% \begin{exercise}\textbf{Numeric Proof by Induction }[7.5 points]\ \\[5pt]
+% Prove by induction:
+
+% \begin{center}
+% Let $n\ge 1$ be an integer. Consider $\sum_{i=1}^n 1/2^i$ and prove:
+%  \[\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots + \frac{1}{2^n} < 1.\]
+%  \end{center}
+% \end{exercise}
+
+%------------------------------------------------------------------------
+% \begin{exercise}\textbf{Geometric Proof by Induction }[7.5 points]\ \\[5pt]
+
+% Prove the following statement by induction: 
+
+% \begin{center}
+%  \emph{An arrangement of $n>2$ lines in general position (no 2 lines parallel, no 3 lines concurrent) partitions the plane into connected bounded and unbounded polygonal regions. Prove that at least one of these regions must be a triangle.}
+%  \end{center}
+
+% Include visualizations if helpful for your proof.
+
+% \end{exercise}
+
+% %------------------------------------------------------------------------
+% \begin{exercise}\textbf{Box Principle Proof by Induction }[7.5 points]\ \\
+
+% Prove the \textit{Pigeonhole Principle} by induction: 
+% \begin{theorem}[\textbf{Pigeonhole Principle}]
+%  If $n+1$ objects are distributed among $n$ boxes, one box will contain at least two objects.
+% \end{theorem}
+
+% \end{exercise}
+
+
+%------------------------------------------------------------------------
+\begin{exercise}\textbf{Number Theory and Modular Arithmetic} [6~pts.] \\
+
+Suppose $\mathbb{Z}_n$ is the set of integers modulo $n$, that is, $\mathbb{Z}_n=\{0, 1, 2, 3, ..., n-1\}$.
+
+The addition, respectively multiplication, table of $\mathbb{Z}_{n}$ is a table that for every $i,j\in\{0,\ldots,n-1\}$ displays the value 
+of $i + j \pmod n$, respectively  $i\times j \pmod n$.
+
+For instance, the multiplication table for $\mathbb{Z}_{12}$ is the following:
+\[
+\begin{array}{c|cccccccccccc}
+\otimes & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+\hline
+0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
+1  & 0  & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 & 11 \\
+2  & 0  & 2  & 4  & 6  & 8  & 10 & 0  & 2  & 4  & 6  & 8  & 10 \\
+3  & 0  & 3  & 6  & 9  & 0  & 3  & 6  & 9  & 0  & 3  & 6  & 9  \\
+4  & 0  & 4  & 8  & 0  & 4  & 8  & 0  & 4  & 8  & 0  & 4  & 8  \\
+5  & 0  & 5  & 10 & 3  & 8  & 1  & 6  & 11 & 4  & 9  & 2  & 7  \\
+6  & 0  & 6  & 0  & 6  & 0  & 6  & 0  & 6  & 0  & 6  & 0  & 6  \\
+7  & 0  & 7  & 2  & 9  & 4  & 11 & 6  & 1  & 8  & 3  & 10 & 5  \\
+8  & 0  & 8  & 4  & 0  & 8  & 4  & 0  & 8  & 4  & 0  & 8  & 4  \\
+9  & 0  & 9  & 6  & 3  & 0  & 9  & 6  & 3  & 0  & 9  & 6  & 3  \\
+10 & 0  & 10 & 8  & 6  & 4  & 2  & 0  & 10 & 8  & 6  & 4  & 2  \\
+11 & 0  & 11 & 10 & 9  & 8  & 7  & 6  & 5  & 4  & 3  & 2  & 1  \\
+\end{array}
+\]
+
+\begin{enumerate}
+    \item Suppose $\mathbb{Z}_7$ is the set of integers modulo $7$, that is, $\mathbb{Z}_7=\{0, 1, 2, 3, 4, 5, 6\}$.
+
+\begin{enumerate}[(i)]
+\item Construct the addition table for
+$\mathbb{Z}_7$. We have $a \oplus b =(a+b) \mod 7$ in $\mathbb{Z}_7$. \hfill [2~pts.]
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|ccccccc}
+$\oplus$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+0 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+1 & 1 & 2 & 3 & 4 & 5 & 6 & 0 \\
+2 & 2 & 3 & 4 & 5 & 6 & 0 & 1 \\
+3 & 3 & 4 & 5 & 6 & 0 & 1 & 2 \\
+4 & 4 & 5 & 6 & 0 & 1 & 2 & 3 \\
+5 & 5 & 6 & 0 & 1 & 2 & 3 & 4 \\
+6 & 6 & 0 & 1 & 2 & 3 & 4 & 5 \\
+\end{tabular}
+\caption{Addition table for $\mathbb{Z}_7$}
+\end{table}
+
+
+\vspace{0.3cm}
+\item Construct the multiplication table for
+$\mathbb{Z}_7$. We have $a \otimes  b=(a\cdot b) \mod 7$ in $\mathbb{Z}_7$. 
+
+\ \hfill [2~pts.]
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|ccccccc}
+$\otimes$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+2 & 0 & 2 & 4 & 6 & 1 & 3 & 5 \\
+3 & 0 & 3 & 6 & 2 & 5 & 1 & 4 \\
+4 & 0 & 4 & 1 & 5 & 2 & 6 & 3 \\
+5 & 0 & 5 & 3 & 1 & 6 & 4 & 2 \\
+6 & 0 & 6 & 5 & 4 & 3 & 2 & 1 \\
+\end{tabular}
+\caption{Multiplication table for $\mathbb{Z}_7$}
+\end{table}
+
+\end{enumerate}
+
+\vspace{0.5cm}
+\item Explain why in the multiplication table for $\mathbb{Z}_{10007},$ every row, except for 
+the one of $0$ contains exactly one occurrence of $1$. \hfill [2~pts.]
+
+\vspace{0.2cm}
+Since $10007$ is prime, $\mathbb{Z}_{10007}$ is a field. Every nonzero element
+$a \in \mathbb{Z}_{10007}$ has a unique multiplicative inverse $a^{-1}$ such that
+\[
+aa^{-1} \equiv 1 \pmod{10007}.
+\]
+Therefore, in the multiplication table, each nonzero row contains exactly one entry equal to $1$.
+\end{enumerate}
+
+\end{exercise}
+
+%------------------------------------------------------------------------
+\begin{exercise}\textbf{Extended Euclidean Algorithm }[8 points]
+
+\begin{enumerate}[(a)]
+\item Use the Euclidean algorithm to calculate the GCD of $a$ and $m$ when $a = 19$ and $m = 141$.
+
+\ \hfill [2.5 pts.]
+
+\begin{itemize}
+    \item $141 = 7 \times 19 + 8$
+    \item $19 = 2 \times 8 + 3$
+    \item $8 = 2 \times 3 + 2$
+    \item $3 = 1 \times 2 + 1$
+    \item $2 = 2 \times 1 + 0$
+\end{itemize}
+The last non-zero remainder is 1, so  GCD $(141, 19) = 1$.
+
+\vspace{0.5cm}
+\item Find the integers $s$ and $t$ that satisfy the following expression: $\text{gcd}(141,19)=s\cdot 141 + t\cdot 19$. 
+
+\ \hfill [2.5 pts.]
+\begin{align*}
+1 &= 3 - 1(2) \\
+1 &= 3 - 1(8 - 2(3)) = 3(3) - 1(8) \\
+1 &= 3(19 - 2(8)) - 1(8) = 3(19) - 7(8) \\
+1 &= 3(19) - 7(141 - 7(19)) \\
+1 &= 3(19) - 7(141) + 49(19) \\
+1 &= (-7) \cdot 141 + (52) \cdot 19
+\end{align*}
+
+Thus, $s = -7$ and $t = 52$.
+
+\vspace{0.3cm}
+\item Determine whether the following congruence has a solution: $19x \equiv 10 \pmod{141}$. If so, determine the smallest positive value of $x$ that satisfies the congruence. 
+
+\ \hfill [3 pts.]
+
+To solve $19x \equiv 10 \pmod{141}$, we first find the multiplicative inverse of $19$ modulo $141$. From part (b), we have:
+\[ (-7) \cdot 141 + (52) \cdot 19 = 1 \]
+This implies that $52 \cdot 19 \equiv 1 \pmod{141}$, so $19^{-1} \equiv 52 \pmod{141}$.
+
+Multiplying both sides of the congruence by $52$:
+\begin{align*}
+52 \cdot 19x &\equiv 52 \cdot 10 \pmod{141} \\
+x &\equiv 520 \pmod{141}
+\end{align*}
+Reducing $520$ modulo $141$:
+\[ 520 = 3 \times 141 + 97 \]
+Thus, the smallest positive value is $x = 97$.
+
+\end{enumerate}
+\end{exercise}
+
+
+
+
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+
+\begin{exercise}\textbf{Divisibility and Modular Arithmetic Proofs} [11 points]
+
+
+\begin{enumerate}[(a)]
+
+% \item Prove by division into cases:\hfill [3~pts.]
+% \begin{center}
+%     If any integer $n$ is not a multiple of 4, then $n^2 \equiv 0 \pmod{4}$ or $n^2 \equiv 1 \pmod{4}$.
+% \end{center}
+
+\item Let $a,b,c,\in\mathbb{Z}$ and $m\in\mathbb{Z}^+$. Prove that $ac\equiv bc \pmod{m}$ iff $a \equiv b \pmod{\frac{m}{\gcd(c,m)}}$.\hfill [4~pts.]
+\vspace{0.3cm}
+
+Let $d = \gcd(c, m)$. To prove $ac \equiv bc \pmod m \iff a \equiv b \pmod{\frac{m}{d}}$.
+
+($\Rightarrow$) Assume $ac \equiv bc \pmod m$. This implies $m \mid c(a-b)$, so $c(a-b) = km$ for some integer $k$. Dividing both sides by $d$:
+\[ \frac{c}{d}(a-b) = k\frac{m}{d} \]
+Since $\gcd(\frac{c}{d}, \frac{m}{d}) = 1$, by Euclid's Lemma, $\frac{m}{d} \mid (a-b)$. 
+Therefore, $a \equiv b \pmod{\frac{m}{d}}$.
+
+($\Leftarrow$) Conversely, assume $a \equiv b \pmod{\frac{m}{d}}$. 
+Let $c = dc_1$ and $m = dm_1$, where $\gcd(c_1, m_1) = 1$. 
+The assumption $a \equiv b \pmod{m_1}$ implies $m_1 \mid (a-b)$, so $(a-b) = km_1$ for some integer $k$. 
+Multiplying both sides by $c = dc_1$:
+\[ c(a-b) = (dc_1)(km_1) = (dm_1)(c_1k) = m(c_1k) \]
+Since $c(a-b)$ is a multiple of $m$, it follows that $ac \equiv bc \pmod m$.
+\vspace{0.3cm}
+\item Prove the following old rule: \hfill [4~pts.]
+\begin{center}
+\emph{An integer is divisible by 9 if and only if the sum of its digits is divisible by 9.} 
+\end{center}
+%
+% \textit{Hint}: Use Base-10 representation. In particular, present the integer as a linear combination using the integer's digits multiplied by a power of 10. 
+
+\textit{Hint:} Write the integer in its base-10 form:
+\[
+n = d_k10^k + d_{k-1}10^{k-1} + \cdots + d_1 10 + d_0,
+\]
+where $d_i$ are the digits. Then notice that $10 \equiv 1 \pmod{9}$ and use this fact to simplify $n$ modulo $9$.
+
+\vspace{0.3cm}
+Let $n = \sum_{i=0}^{k} d_i 10^i$. Since $10 \equiv 1 \pmod 9$, then $10^i \equiv 1^i \equiv 1 \pmod 9$ for all $i$.
+\begin{align*}
+n &= d_k 10^k + d_{k-1} 10^{k-1} + \dots + d_1 10 + d_0 \\
+n &\equiv d_k(1) + d_{k-1}(1) + \dots + d_1(1) + d_0 \pmod 9 \\
+n &\equiv \sum_{i=0}^{k} d_i \pmod 9
+\end{align*}
+Thus, $9 \mid n$ if and only if $9 \mid \sum_{i=0}^k d_i$.
+
+\vspace{0.4cm}
+
+\item The two-digit integers from 19 to 92 are written consecutively to form the large integer
+$$N=192021\dots 909192$$ What is the largest power of $3$ that is a factor of $N$? \hfill [3~pts.]
+
+\textit{Hint:} Use the result from (b): the remainder of a number modulo $3$ (or $9$) depends only on the sum of its digits. 
+You do \textbf{not} need to compute $N$ itself. Instead, find the sum of all digits in $N$ and use it to determine the largest power of $3$ dividing $N$.
+
+\vspace{0.3cm}
+$N$ is formed by digits of integers from $19$ to $92$.
+The sum of digits $S$ is:
+\begin{itemize}
+    \item Tens digits: $1$ (for 19) + $2 \times 10$ (for 20-29) + $\dots + 8 \times 10$ (for 80-89) + $9 \times 3$ (for 90-92).
+    \item Units digits: $9$ (for 19) + $7 \times (0+1+\dots+9)$ (for 20-89) + $(0+1+2)$ (for 90-92).
+\end{itemize}
+Sum of units $0-9 = 45$.
+$S = 1 + 10(2+3+4+5+6+7+8) + 27 + 9 + 7(45) + 3 = 1 + 350 + 27 + 9 + 315 + 3 = 705$.
+
+
+Check divisibility of $705$ by powers of $3$:
+$7+0+5 = 12$, which is divisible by $3$, but $12$ is not divisible by $9$.
+Therefore, $3^1 \mid N$ but $3^2 \nmid N$. The largest power is $3^1$.
+Therefore, \(3 \mid N\) but \(9 \nmid N\), so the largest power of \(3\) dividing \(N\) is \(3^1\).
+
+\vspace{0.3cm}
+
+\item Solve either part (i) or part (ii) below, but not both. If both parts are submitted, only the first one will be considered. [\textbf{This question is optional for $+1$ bonus point.}]
+
+
+\begin{enumerate}[(i)]
+    \item Give a counterexample to the statement: If $p$ and $q$ are distinct primes and $a$ is an integer not divisible by $p$ or $q$, then $a^{pq}\equiv a\pmod {pq}$.
+    \item Prove the statement: If $p$ and $q$ are distinct primes, $a$ is an integer not divisible by $p$ or $q$, and $a^p\equiv a\bmod q$ and $a^q\equiv a\bmod p$, then $a^{pq}\equiv a\pmod {pq}$.
+\end{enumerate}
+ \hfill [1~pt.]
+
+  \textit{Hint for (ii):} Apply Fermat’s Little Theorem modulo $p$ and modulo $q$ separately to obtain two congruences. 
+Then use basic properties of congruences to combine these results and show that $a^{pq} \equiv a \pmod{pq}$.
+
+\vspace{0.5cm}
+(ii) Given $a^p \equiv a \pmod q$ and $a^q \equiv a \pmod p$, where $p, q$ are distinct primes and $\gcd(a, p) = \gcd(a, q) = 1$.
+By Fermat's Little Theorem, we know:
+\[ a^{p-1} \equiv 1 \pmod p \implies (a^{p-1})^q \equiv 1^q \equiv 1 \pmod p \]
+\[ a^{pq-q} \equiv 1 \pmod p \implies a^{pq} \equiv a^q \pmod p \]
+Since we are given $a^q \equiv a \pmod p$, it follows that $a^{pq} \equiv a \pmod p$.
+
+Similarly, using Fermat's Little Theorem modulo $q$:
+\[ a^{q-1} \equiv 1 \pmod q \implies (a^{q-1})^p \equiv 1^p \equiv 1 \pmod q \]
+\[ a^{pq-p} \equiv 1 \pmod q \implies a^{pq} \equiv a^p \pmod q \]
+Since we are given $a^p \equiv a \pmod q$, it follows that $a^{pq} \equiv a \pmod q$.
+
+Because $p$ and $q$ are distinct primes ($\gcd(p,q)=1$), and $a^{pq}-a$ is divisible by both $p$ and $q$, it must be divisible by their product $pq$. 
+Therefore, $a^{pq} \equiv a \pmod{pq}$.
+\end{enumerate}
+\end{exercise}
+
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
